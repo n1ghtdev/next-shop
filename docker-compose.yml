@@ -1,24 +1,32 @@
 version: '3.7'
 
 services:
+  nginx:
+    image: nginx:mainline-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - api
+    networks:
+      - app-network
   client:
     build: client
     container_name: client
-    ports:
-      - 3000:3000
     depends_on:
       - api
-    volumes:
-      - ./client:/client
+    networks:
+      - app-network
   api:
     build: server
     container_name: api
-    ports:
-      - 8080:8080
     depends_on:
       - mongo
-    volumes:
-      - ./server:/server
+    networks:
+      - app-network
   mongo:
     image: mongo:latest
     restart: always
@@ -29,6 +37,12 @@ services:
       - 27017
     volumes:
       - database:/data/db
+    networks:
+      - app-network
 
 volumes:
   database:
+
+networks:
+  app-network:
+    driver: bridge

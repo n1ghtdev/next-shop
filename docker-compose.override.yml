@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  client:
+    volumes:
+      - ./client:/usr/client
+  api:
+    volumes:
+      - ./server:/usr/api
