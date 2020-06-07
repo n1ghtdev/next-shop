@@ -11,11 +11,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/api/v1/test', (req: any, res: any) => res.send('Hello World!'));
 
 const port = 8080;
 
-app.listen(port, (err) => {
+app.listen(port, (err: any) => {
   if (err) {
     console.error(err.message);
   } else {
