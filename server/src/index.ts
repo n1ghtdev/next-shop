@@ -1,24 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
+import { app } from './app';
 
-const app = express();
+const port = process.env.PORT || 8080;
 
-mongoose.connect('mongodb://mongo:27017/server', { useNewUrlParser: true });
-app.use(cors({ origin: '*', credentials: true }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
-
-app.get('/api/v1/test', (req: any, res: any) => res.send('Hello World!'));
-
-const port = 8080;
-
-app.listen(port, (err: any) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log(`SERVER running on localhost:${port}`);
-  }
-});
+app
+  .listen(port, () => {
+    console.info(`Server running on port ${port}`);
+  })
+  .on('error', (error: Error) => {
+    console.error(error.message);
+  });
