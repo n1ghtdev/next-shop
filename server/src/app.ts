@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import { notFound, errorHandler } from './middlewares/route-handlers';
+import { routes } from './routes';
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-app.get('/api/v1/test', (req: any, res: any) => res.send('Hello World!'));
+app.use('/api/v1', routes);
 
 app.use(notFound);
 app.use(errorHandler);
