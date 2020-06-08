@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 import { IOrder } from './order';
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
   firstName: {
     type: String,
     required: true,

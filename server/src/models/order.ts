@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 import { IProduct } from './product';
 
-const OrderItemSchema = Schema({
+const OrderItemSchema = new Schema({
   product: {
     type: Schema.Types.ObjectId,
     ref: 'Product',
@@ -12,14 +12,14 @@ const OrderItemSchema = Schema({
   },
 });
 
-const ShippingSchema = Schema({
+const ShippingSchema = new Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
   postalCode: { type: String, required: true },
   country: { type: String, required: true },
 });
 
-const OrderSchema = Schema(
+const OrderSchema = new Schema(
   {
     items: [OrderItemSchema],
     shipping: ShippingSchema,

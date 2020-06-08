@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 import { IProduct } from './product';
-
-const CategorySchema = Schema({
+// remove products array
+const CategorySchema = new Schema({
   name: {
     type: String,
     required: true,

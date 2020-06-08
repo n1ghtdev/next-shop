@@ -1,6 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 
-const ProductSchema = Schema({
+const ProductSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -35,7 +35,7 @@ interface IProductSchema extends Document {
 }
 
 export interface IProduct extends IProductSchema {
-  category: ICategory[];
+  category: string[];
 }
 
 export default model<IProduct>('Product', ProductSchema);
