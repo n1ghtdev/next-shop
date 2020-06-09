@@ -12,7 +12,8 @@ export class ProductService {
     await productRecord.save(async (err: Error, doc: any) => {
       await CategoryModel.updateOne(
         { _id: doc.category },
-        { $inc: { qty: 1 } }
+        // eslint-disable-next-line no-underscore-dangle
+        { $inc: { qty: 1 }, $push: { products: doc._id } }
       );
     });
 
@@ -21,7 +22,7 @@ export class ProductService {
 
   static async findAll(): Promise<IProduct[]> {
     const products = await ProductModel.find()
-      .populate({ path: 'category' })
+      .populate({ path: 'category', select: '_id, name' })
       .exec();
 
     return products;
@@ -30,6 +31,7 @@ export class ProductService {
   static async find(id: string): Promise<IProduct> {
     const product = await ProductModel.findOne({ _id: id }).populate({
       path: 'category',
+      select: '_id, name',
     });
 
     return product!;
@@ -40,7 +42,7 @@ export class ProductService {
       { _id: product.id },
       { ...product },
       { new: true }
-    ).populate({ path: 'category' });
+    ).populate({ path: 'category', select: '_id, name' });
 
     return updatedProduct!;
   }
