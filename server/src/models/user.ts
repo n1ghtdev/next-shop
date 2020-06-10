@@ -50,5 +50,4 @@ interface IUserSchema extends Document {
 export interface IUser extends IUserSchema {
   orders: IOrder[];
 }
-
 export default model<IUser>('User', UserSchema);
