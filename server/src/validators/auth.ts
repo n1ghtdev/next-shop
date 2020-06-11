@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import { IUserSignUpInput } from '../typings';
+import { IUserSignUpInput, IUserSignInInput } from '../typings';
 
 export function signUpValidation(data: IUserSignUpInput) {
   const schema = Joi.object({

@@ -7,3 +7,7 @@ export interface IUserSignUpInput extends IUserSignInInput {
   firstName: string;
   lastName?: string;
 }
+
+export interface IUserJWTPayload {
+  _id: string;
+}

@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 import UserModel from '../models/user';
+import { IUserJWTPayload } from '../typings';
 
 export class AuthService {
   static async SignUp(input: any) {
@@ -11,7 +13,7 @@ export class AuthService {
 
       const userRecord = await UserModel.create({
         ...input,
-        salt: salt.toString('hex'),
+        // salt: salt.toString('hex'),
         password: hashedPassword,
       });
 
@@ -59,7 +61,10 @@ export class AuthService {
   }
 
   static async updateTokens(token: string) {
-    const payload = await jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    const payload: IUserJWTPayload = (await jwt.verify(
+      token,
+      config.JWT_REFRESH_SECRET
+    )) as IUserJWTPayload;
 
     if (!payload) {
       throw new Error('Invalid Token');
@@ -89,7 +94,7 @@ export class AuthService {
       {
         _id: userId,
       },
-      process.env.JWT_SECRET,
+      config.JWT_SECRET,
       { expiresIn: '30m' }
     );
   }
@@ -99,7 +104,7 @@ export class AuthService {
       {
         _id: userId,
       },
-      process.env.JWT_REFRESH_SECRET,
+      config.JWT_REFRESH_SECRET,
       { expiresIn: '30d' }
     );
   }

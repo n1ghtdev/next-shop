@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -6,8 +5,6 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import { notFound, errorHandler } from './middlewares/route-handlers';
 import { routes } from './routes';
-
-dotenv.config();
 
 const app = express();
 
